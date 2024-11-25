@@ -8,6 +8,7 @@ import Header from "./components/Header.jsx";
 import PrivateRoute from "./components/PrivateRoute.jsx";
 import ForgetPassword from "./pages/ForgetPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
+import CreateArticle from "./pages/CreateArticle.jsx";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/create" element={<CreateArticle />} />
           </Route>
         </Routes>
       </Router>

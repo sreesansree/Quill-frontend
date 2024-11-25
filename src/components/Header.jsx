@@ -55,7 +55,7 @@ const Header = () => {
                 <FaPlus className="mr-2" /> Create
               </Link>
               <Link
-                to="/myarticles"
+                to="#"
                 className="flex items-center text-white hover:text-gray-200"
               >
                 <FaFileAlt className="mr-2" /> My Articles
