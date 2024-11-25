@@ -9,6 +9,8 @@ import PrivateRoute from "./components/PrivateRoute.jsx";
 import ForgetPassword from "./pages/ForgetPassword.jsx";
 import ResetPassword from "./pages/ResetPassword.jsx";
 import CreateArticle from "./pages/CreateArticle.jsx";
+import MyArticles from "./pages/MyArticles.jsx";
+import EditArticle from "./pages/EditArticle.jsx";
 
 function App() {
   return (
@@ -26,6 +28,8 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/create" element={<CreateArticle />} />
+            <Route path="/MyArticles" element={<MyArticles />} />
+            <Route path="/edit-article/:id" element={<EditArticle />} />
           </Route>
         </Routes>
       </Router>
