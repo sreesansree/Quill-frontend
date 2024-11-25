@@ -127,7 +127,10 @@ const Signin = () => {
         </form>
 
         <p className="mt-4 flex flex-col gap-1 text-sm text-center text-gray-600">
-          <Link href="#" className="text-sm text-blue-600 hover:underline">
+          <Link
+            to={"/forget-password"}
+            className="text-sm text-blue-600 hover:underline"
+          >
             Forgot password?
           </Link>
           Don’t have an account?{" "}
