@@ -141,7 +141,7 @@ const Signup = () => {
                 onChange={handleChange}
               />
               {errors.firstName && (
-                <p className="text-sm text-red-500 animate-pulse">{errors.firstName}</p>
+                <p className="text-sm text-red-500 ">{errors.firstName}</p>
               )}
             </div>
             <div className="mb-4">
@@ -155,7 +155,7 @@ const Signup = () => {
                 onChange={handleChange}
               />
               {errors.lastName && (
-                <p className="text-sm text-red-500 animate-pulse">{errors.lastName}</p>
+                <p className="text-sm text-red-500">{errors.lastName}</p>
               )}
             </div>
           </div>
@@ -170,7 +170,7 @@ const Signup = () => {
               onChange={handleChange}
             />
             {errors.email && (
-              <p className="text-sm text-red-500 animate-pulse">{errors.email}</p>
+              <p className="text-sm text-red-500 ">{errors.email}</p>
             )}
           </div>
           <div className="mb-4">
@@ -184,7 +184,7 @@ const Signup = () => {
               onChange={handleChange}
             />
             {errors.phone && (
-              <p className="text-sm text-red-500 animate-pulse">{errors.phone}</p>
+              <p className="text-sm text-red-500 ">{errors.phone}</p>
             )}
           </div>
           <div className="mb-4">
@@ -196,7 +196,7 @@ const Signup = () => {
               } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
               onChange={handleChange}
             />
-            {errors.dob && <p className="text-sm text-red-500 animate-pulse">{errors.dob}</p>}
+            {errors.dob && <p className="text-sm text-red-500">{errors.dob}</p>}
           </div>
 
           <div className="mb-4">
@@ -210,7 +210,7 @@ const Signup = () => {
               onChange={handleChange}
             />
             {errors.password && (
-              <p className="text-sm text-red-500 animate-pulse">{errors.password}</p>
+              <p className="text-sm text-red-500 ">{errors.password}</p>
             )}
           </div>
           <div className="mb-4">
@@ -224,14 +224,14 @@ const Signup = () => {
               onChange={handleChange}
             />
             {errors.confirmPassword && (
-              <p className="text-sm text-red-500 animate-pulse">{errors.confirmPassword}</p>
+              <p className="text-sm text-red-500">{errors.confirmPassword}</p>
             )}
           </div>
           <div className="mb-4">
             <button
               type="button"
               onClick={toggleModal}
-              className="w-full px-4 py-2 mt-1  bg-white/30 backdrop-blur-sm text-white bg-green-500 rounded-lg hover:bg-blue-700"
+              className="w-full px-4 py-2 mt-1   backdrop-blur-sm text-white bg-blue-400 rounded-lg hover:bg-blue-700"
               onChange={handleChange}
             >
               Choose Article Preferences
