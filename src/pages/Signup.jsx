@@ -231,7 +231,7 @@ const Signup = () => {
             <button
               type="button"
               onClick={toggleModal}
-              className="w-full px-4 py-2 mt-1  bg-white/30 backdrop-blur-sm text-white bg-blue-500 rounded-lg hover:bg-blue-700"
+              className="w-full px-4 py-2 mt-1  bg-white/30 backdrop-blur-sm text-white bg-green-500 rounded-lg hover:bg-blue-700"
               onChange={handleChange}
             >
               Choose Article Preferences

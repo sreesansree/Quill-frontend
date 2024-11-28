@@ -60,7 +60,7 @@ const Signin = () => {
         password,
       });
       loginUser(response.data);
-      navigate("/dashboard");
+      navigate("/");
       toast.success(response.message || "Signup successful!");
     } catch (error) {
       setError(error.response?.data?.message || "Something went wrong");

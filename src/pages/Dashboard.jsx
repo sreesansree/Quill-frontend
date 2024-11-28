@@ -14,7 +14,6 @@ const Dashboard = () => {
       try {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
-        console.log("loggedUserrr", loggedUser);
         const { data } = await axios.get("/api/articles/preferences", {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -24,7 +23,7 @@ const Dashboard = () => {
         setArticles(data);
         setLoading(false);
       } catch (error) {
-        console.log(error);
+        console.log("Error Message : ", error.message);
         toast.error("Failed to load articles!");
         setLoading(false);
       }
@@ -94,27 +93,43 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="max-w-7xl mx-auto p-6 flex flex-col justify-center items-center m-2">
+      <h1 className="text-4xl font-bold mb-8 text-center">Dashboard</h1>
+      <div className="grid grid-cols-1 max-w-6xl  gap-8">
         {articles.map((article) => (
           <div
             key={article._id}
-            className="border rounded-lg p-4 shadow hover:shadow-lg"
+            className="border rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
           >
-            <h2 className="text-xl font-semibold">{article.title}</h2>
-            <p className="text-sm text-gray-600">by {article.author?.name}</p>
-            <p className="mt-2 text-gray-800 line-clamp-3">
+            <div className="relative">
+              <h2 className="absolute top-4 right-4 bg-blue-400 text-white font-semibold px-3 py-1 rounded-full shadow-lg">
+                {article.category}
+              </h2>
+              <h2 className="text-3xl font-semibold mb-3">{article.title}</h2>
+            </div>
+
+            <p className="text-sm text-gray-600 mb-3">
+              by {article.author?.firstName} {article.author?.lastName}
+            </p>
+            <p className="text-sm text-gray-500 mb-4">
+              <strong></strong> {new Date(article.createdAt).toLocaleString()}
+            </p>
+            <img
+              src={article.images[0] || "/placeholder-image.jpg"}
+              alt={article.title}
+              className="w-full h-80 object-cover mb-5 rounded-lg"
+            />
+            <p className="text-gray-800 line-clamp-3 mb-6">
               {article.description}
             </p>
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center">
               <button
                 onClick={() => viewArticle(article._id)}
                 className="text-blue-600 hover:underline"
               >
                 View
               </button>
-              <div className="flex gap-2">
+              <div className="flex gap-4">
                 <button
                   onClick={() => handleLike(article._id)}
                   className="text-green-600 hover:underline"

@@ -34,7 +34,7 @@ const Header = () => {
     <header className="bg-blue-600 shadow-md">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* Logo */}
-        <Link to="/dashboard" className="text-white text-xl font-bold">
+        <Link to="#" className="text-white text-xl font-bold">
           Quill
         </Link>
 
@@ -43,7 +43,7 @@ const Header = () => {
             {/* Navbar Links */}
             <nav className="hidden md:flex items-center space-x-6">
               <Link
-                to="/dashboard"
+                to="/"
                 className="flex items-center text-white hover:text-gray-200"
               >
                 <FaHome className="mr-2" /> Dashboard
