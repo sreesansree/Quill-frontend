@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import useAuth from "../Hooks/useAuth";
+import Spinner from "../components/Spinner";
 
 const Dashboard = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
+  useAuth();
   useEffect(() => {
     const fetchArticles = async () => {
       try {
@@ -19,7 +22,6 @@ const Dashboard = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log("dataa :", data);
         setArticles(data);
         setLoading(false);
       } catch (error) {
@@ -33,35 +35,77 @@ const Dashboard = () => {
   }, []);
 
   const handleLike = async (articleId) => {
+    const article = articles.find((article) => article._id === articleId);
+    if (article.likedByUser) {
+      toast.info("You already liked this article!");
+      return;
+    }
+
     try {
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
 
-      await axios.post(
-        `/api/articles/${articleId}/like`,
+      const { data } = await axios.post(
+        `/api/user/${articleId}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
+
+      setArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article._id === articleId
+            ? {
+                ...article,
+                likes: data.article.likes, // Use updated likes array from backend
+                dislikes: data.article.dislikes,
+                likedByUser: true,
+                dislikedByUser: false,
+              }
+            : article
+        )
+      );
+
       toast.success("Liked the article!");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to like the article!");
     }
   };
 
   const handleDislike = async (articleId) => {
+    const article = articles.find((article) => article._id === articleId);
+    if (article.dislikedByUser) {
+      toast.info("You already disliked this article!");
+      return;
+    }
+
     try {
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
 
-      await axios.post(
-        `/api/articles/${articleId}/dislike`,
+      const { data } = await axios.post(
+        `/api/user/${articleId}/dislike`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
+
+      setArticles((prevArticles) =>
+        prevArticles.map((article) =>
+          article._id === articleId
+            ? {
+                ...article,
+                likes: data.article.likes, // Use updated likes array from backend
+                dislikes: data.article.dislikes,
+                likedByUser: false,
+                dislikedByUser: true,
+              }
+            : article
+        )
+      );
+
       toast.success("Disliked the article!");
     } catch (error) {
-      console.log(error);
+      console.error(error);
       toast.error("Failed to dislike the article!");
     }
   };
@@ -72,7 +116,7 @@ const Dashboard = () => {
       const token = loggedUser?.token;
 
       await axios.post(
-        `/api/articles/${articleId}/block`,
+        `/api/user/${articleId}/block`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -89,17 +133,23 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <Spinner />
+        {/* You can customize this with a spinner or skeleton loader */}
+      </div>
+    );
   }
 
   return (
     <div className="max-w-7xl mx-auto p-6 flex flex-col justify-center items-center m-2">
+      <ToastContainer />
       <h1 className="text-4xl font-bold mb-8 text-center">Dashboard</h1>
       <div className="grid grid-cols-1 max-w-6xl  gap-8">
         {articles.map((article) => (
           <div
             key={article._id}
-            className="border rounded-lg p-8 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+            className="border rounded-lg p-8 shadow-lg hover:shadow-2xl "
           >
             <div className="relative">
               <h2 className="absolute top-4 right-4 bg-blue-400 text-white font-semibold px-3 py-1 rounded-full shadow-lg">
@@ -112,7 +162,10 @@ const Dashboard = () => {
               by {article.author?.firstName} {article.author?.lastName}
             </p>
             <p className="text-sm text-gray-500 mb-4">
-              <strong></strong> {new Date(article.createdAt).toLocaleString()}
+              <strong>{new Date(article.createdAt).toLocaleString()}</strong>
+            </p>
+            <p className="text-sm text-blue-500 mb-4 underline">
+              <>#{article.tags.join(" #")}</>
             </p>
             <img
               src={article.images[0] || "/placeholder-image.jpg"}
@@ -132,15 +185,21 @@ const Dashboard = () => {
               <div className="flex gap-4">
                 <button
                   onClick={() => handleLike(article._id)}
-                  className="text-green-600 hover:underline"
+                  className={`text-green-600 hover:underline ${
+                    article.likedByUser ? "cursor-not-allowed" : ""
+                  }`}
+                  disabled={article.likedByUser}
                 >
-                  Like
+                  <FaThumbsUp /> Like ({article.likes.length})
                 </button>
                 <button
                   onClick={() => handleDislike(article._id)}
-                  className="text-yellow-600 hover:underline"
+                  className={`text-yellow-600 hover:underline ${
+                    article.dislikedByUser ? "cursor-not-allowed" : ""
+                  }`}
+                  disabled={article.dislikedByUser}
                 >
-                  Dislike
+                  <FaThumbsDown /> Dislike
                 </button>
                 <button
                   onClick={() => handleBlock(article._id)}

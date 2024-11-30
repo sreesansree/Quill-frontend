@@ -14,9 +14,13 @@ import NotFound from "./components/NotFound.jsx";
 import React, { Suspense } from "react";
 import Spinner from "./components/Spinner.jsx";
 import Profile from "./pages/Profile.jsx";
+import ArticleDetails from "./pages/ArticleDetails.jsx";
+import Footer from "./components/Footer.jsx";
 // import MyArticles from "./pages/MyArticles.jsx";
+
 const Dashboard = React.lazy(() => import("./pages/Dashboard.jsx"));
 const MyArticles = React.lazy(() => import("./pages/MyArticles.jsx"));
+
 function App() {
   return (
     <>
@@ -38,6 +42,7 @@ function App() {
                 </Suspense>
               }
             />
+            <Route path="/articles/:id" element={<ArticleDetails />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/create" element={<CreateArticle />} />
 
@@ -54,6 +59,7 @@ function App() {
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <Footer />
       </Router>
     </>
   );

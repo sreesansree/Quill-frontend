@@ -33,6 +33,7 @@ const MyArticles = () => {
       ];
       setCategories(uniqueCategories);
     } catch (error) {
+      console.log(error);
       toast.error("Failed to fetch articles");
     } finally {
       setLoading(false);
@@ -94,9 +95,13 @@ const MyArticles = () => {
   };
 
   if (loading) {
-    return <p className="text-center mt-10">Loading articles...</p>;
+    return (
+      <div className="min-h-screen flex justify-center items-center">
+        <div>Loading...</div>{" "}
+        {/* You can customize this with a spinner or skeleton loader */}
+      </div>
+    );
   }
-
   return (
     <div className="max-w-5xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6 text-center">My Articles</h1>
