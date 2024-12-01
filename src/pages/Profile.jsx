@@ -7,11 +7,15 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast styling
 import { ChangePasswordModal } from "../components/ChangePassword";
 
+
+
+
 const Profile = () => {
   //   const { loggedUser } = useUser();
   const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isChangePasswordOpen, setChangePasswordOpen] = useState(false);
+  const [errors, setErrors] = useState({});
 
   const [formData, setFormData] = useState({
     firstName: loggedUser?.user?.name || "",
@@ -21,7 +25,6 @@ const Profile = () => {
     email: loggedUser?.user?.email || "",
     preferences: loggedUser?.user?.preferences?.join(", ") || "",
   });
-  const [errors, setErrors] = useState({});
 
   const validate = () => {
     const newErrors = {};
