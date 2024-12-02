@@ -93,11 +93,14 @@ const Signup = () => {
     const completeData = { ...formData, preferences: selectedCategories };
     setRegisteredUser(completeData.email);
     try {
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(completeData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(completeData),
+        }
+      );
       const data = await res.json();
       console.log(data);
       if (res.ok) {
@@ -136,7 +139,9 @@ const Signup = () => {
                 id="firstName"
                 placeholder="Enter your First Name"
                 className={`w-full px-4 py-2 bg-white/30 backdrop-blur-sm mt-1 text-gray-900 border ${
-                  errors.firstName ? "border-red-500 animate-pulse" : "border-gray-300"
+                  errors.firstName
+                    ? "border-red-500 animate-pulse"
+                    : "border-gray-300"
                 } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
                 onChange={handleChange}
               />
@@ -150,7 +155,9 @@ const Signup = () => {
                 id="lastName"
                 placeholder="Enter your Last Name"
                 className={`w-full px-4 py-2 bg-white/30 backdrop-blur-sm mt-1 text-gray-900 border ${
-                  errors.lastName ? "border-red-500 animate-pulse" : "border-gray-300"
+                  errors.lastName
+                    ? "border-red-500 animate-pulse"
+                    : "border-gray-300"
                 } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
                 onChange={handleChange}
               />
@@ -165,7 +172,9 @@ const Signup = () => {
               id="email"
               placeholder="Enter your email"
               className={`w-full px-4 py-2 mt-1 bg-white/30 backdrop-blur-sm text-gray-700 border ${
-                errors.email ? "border-red-500 animate-pulse" : "border-gray-300"
+                errors.email
+                  ? "border-red-500 animate-pulse"
+                  : "border-gray-300"
               } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
               onChange={handleChange}
             />
@@ -179,7 +188,9 @@ const Signup = () => {
               id="phone"
               placeholder="Enter your mobile number"
               className={`w-full px-4 py-2 mt-1 bg-white/30 backdrop-blur-sm text-gray-700 border ${
-                errors.phone ? "border-red-500 animate-pulse" : "border-gray-300"
+                errors.phone
+                  ? "border-red-500 animate-pulse"
+                  : "border-gray-300"
               } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
               onChange={handleChange}
             />
@@ -205,7 +216,9 @@ const Signup = () => {
               id="password"
               placeholder="Create a password"
               className={`w-full px-4 py-2 mt-1 bg-white/30 backdrop-blur-sm text-gray-700 border ${
-                errors.password ? "border-red-500 animate-pulse" : "border-gray-300"
+                errors.password
+                  ? "border-red-500 animate-pulse"
+                  : "border-gray-300"
               } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
               onChange={handleChange}
             />
@@ -219,7 +232,9 @@ const Signup = () => {
               id="confirmPassword"
               placeholder="Confirm your password"
               className={`w-full px-4 py-2 mt-1 bg-white/30 backdrop-blur-sm text-gray-700 border ${
-                errors.confirmPassword ? "border-red-500 animate-pulse" : "border-gray-300"
+                errors.confirmPassword
+                  ? "border-red-500 animate-pulse"
+                  : "border-gray-300"
               } rounded-lg focus:ring-blue-500 focus:border-blue-500`}
               onChange={handleChange}
             />
