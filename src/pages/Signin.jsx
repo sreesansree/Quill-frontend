@@ -1,10 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast styling
 import { useUser } from "../context/UserContext.jsx";
-import api from "../../api/api.js";
 
 const Signin = () => {
   const [credential, setCredential] = useState("");
@@ -56,8 +55,7 @@ const Signin = () => {
       return;
     }
     try {
-
-      const response = await api.post("/api/auth/login", {
+      const response = await axios.post("/api/auth/login", {
         credential,
         password,
       });
