@@ -31,7 +31,7 @@ const Header = () => {
   };
   const handleLogoClick = () => {
     if (token) {
-      navigate("/dashboard");
+      navigate("/");
     } else {
       // Optionally, you can do nothing or show a message
       console.log("User  is not logged in.");
@@ -45,7 +45,10 @@ const Header = () => {
         {/* <Link to="#" className="text-white text-xl font-bold">
           Quill
         </Link> */}
-        <button onClick={handleLogoClick} className="text-white text-xl font-bold">
+        <button
+          onClick={handleLogoClick}
+          className="text-white text-xl font-bold"
+        >
           Quill
         </button>
 
