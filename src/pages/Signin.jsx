@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast styling
 import { useUser } from "../context/UserContext.jsx";
+import api from "../api/api.js";
 
 const Signin = () => {
   const [credential, setCredential] = useState("");
@@ -55,13 +56,13 @@ const Signin = () => {
       return;
     }
     try {
-      const response = await axios.post("/api/auth/login", {
+      const response = await api.post("/api/auth/login", {
         credential,
         password,
       });
       loginUser(response.data);
       navigate("/");
-      toast.success(response.message || "Signup successful!");
+      toast.success(response.message || "Signin successful!");
     } catch (error) {
       setError(error.response?.data?.message || "Something went wrong");
       toast.error(
