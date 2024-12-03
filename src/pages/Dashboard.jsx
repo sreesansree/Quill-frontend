@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import Spinner from "../components/Spinner";
+import api from "../api/api";
 
 const Dashboard = () => {
   const [articles, setArticles] = useState([]);
@@ -17,7 +18,7 @@ const Dashboard = () => {
       try {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
-        const { data } = await axios.get("/api/articles/preferences", {
+        const { data } = await api.get("/api/articles/preferences", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -45,7 +46,7 @@ const Dashboard = () => {
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
 
-      const { data } = await axios.post(
+      const { data } = await api.post(
         `/api/user/${articleId}/like`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
@@ -83,7 +84,7 @@ const Dashboard = () => {
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
 
-      const { data } = await axios.post(
+      const { data } = await api.post(
         `/api/user/${articleId}/dislike`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
@@ -115,7 +116,7 @@ const Dashboard = () => {
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
 
-      await axios.post(
+      await api.post(
         `/api/user/${articleId}/block`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
