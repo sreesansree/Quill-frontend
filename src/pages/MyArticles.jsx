@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,6 +6,7 @@ import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import ArticleList from "./ArticleList";
+import api from "../api/api.js";
 
 const MyArticles = () => {
   const [articles, setArticles] = useState([]);
@@ -26,7 +26,7 @@ const MyArticles = () => {
     setLoading(true);
     try {
       const token = JSON.parse(localStorage.getItem("loggedUser"))?.token;
-      const { data } = await axios.get("/api/articles/my-articles", {
+      const { data } = await api.get("/api/articles/my-articles", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -49,7 +49,7 @@ const MyArticles = () => {
     };
     try {
       const token = JSON.parse(localStorage.getItem("loggedUser"))?.token;
-      const { data } = await axios.get(endpointMap[action], {
+      const { data } = await api.get(endpointMap[action], {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -89,7 +89,7 @@ const MyArticles = () => {
       if (result.isConfirmed) {
         try {
           const token = JSON.parse(localStorage.getItem("loggedUser"))?.token;
-          await axios.delete(`/api/articles/${articleId}`, {
+          await api.delete(`/api/articles/${articleId}`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           setArticles(articles.filter((article) => article._id !== articleId));

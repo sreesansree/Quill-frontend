@@ -1,8 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../api/api.js";
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -35,7 +35,7 @@ const ForgetPassword = () => {
     setLoading(true);
 
     try {
-      await axios.post("/api/auth/request-otp", { email });
+      await api.post("/api/auth/request-otp", { email });
       toast.success("OTP sent to your email");
       setTimeout(() => {
         navigate(`/reset-password?email=${email}`);

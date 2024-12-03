@@ -1,7 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../api/api.js";
 
 const CreateArticle = () => {
   const [title, setTitle] = useState("");
@@ -63,7 +64,7 @@ const CreateArticle = () => {
 
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
-      const { data } = await axios.post("/api/articles/create", formData, {
+      const { data } = await api.post("/api/articles/create", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`, // Assuming token is stored in localStorage.

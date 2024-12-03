@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import useAuth from "../Hooks/useAuth";
 import Spinner from "../components/Spinner";
-import api from "../api/api";
+import api from "../api/api.js";
 
 const Dashboard = () => {
   const [articles, setArticles] = useState([]);

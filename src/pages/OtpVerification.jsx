@@ -3,6 +3,7 @@ import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast styling
 import { useUser } from "../context/UserContext.jsx";
+import api from "../api/api.js";
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState("");
@@ -13,18 +14,34 @@ const OtpVerification = () => {
 
   const handleResendOtp = async () => {
     console.log("Resending OTP...");
+    // try {
+    //   const res = await fetch("/api/auth/resend-otp", {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify({ email: registeredUser }), // Pass the email from state
+    //   });
+    //   const data = await res.json();
+    //   if (res.ok) {
+    //     toast.success(data.message || "OTP resent successfully!");
+    //     setTimer(30); // Reset timer
+    //   } else {
+    //     toast.error(data.message || "Failed to resend OTP.");
+    //   }
+    // } catch (error) {
+    //   console.log(error.message);
+    //   toast.error("Network error. Please try again later.");
+    // }
     try {
-      const res = await fetch("/api/auth/resend-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: registeredUser }), // Pass the email from state
+      const response = await api.post("/api/auth/resend-otp", {
+        email: registeredUser, // Pass the email from state
       });
-      const data = await res.json();
-      if (res.ok) {
-        toast.success(data.message || "OTP resent successfully!");
+
+      // Axios automatically parses the response as JSON
+      if (response.status === 200) {
+        toast.success(response.data.message || "OTP resent successfully!");
         setTimer(30); // Reset timer
       } else {
-        toast.error(data.message || "Failed to resend OTP.");
+        toast.error(response.data.message || "Failed to resend OTP.");
       }
     } catch (error) {
       console.log(error.message);
@@ -107,7 +124,9 @@ const OtpVerification = () => {
               className="w-full px-4 py-2 mt-1 bg-white/30 backdrop-blur-sm text-gray-700 border rounded-lg focus:ring-purple-500 focus:border-purple-500"
             />
             {errors.otp && (
-              <p className="mt-1 text-sm text-red-500 text-center">{errors.otp}</p>
+              <p className="mt-1 text-sm text-red-500 text-center">
+                {errors.otp}
+              </p>
             )}
           </div>
 

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../api/api.js";
 
 export const ChangePasswordModal = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState({
@@ -76,7 +76,7 @@ export const ChangePasswordModal = ({ isOpen, onClose }) => {
     const token = JSON.parse(localStorage.getItem("loggedUser"))?.token;
 
     try {
-      const response = await axios.put(
+      const response = await api.put(
         "/api/user/change-password",
         {
           currentPassword: formData.currentPassword,

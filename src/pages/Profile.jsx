@@ -1,11 +1,11 @@
 // import React from "react";
 // import { useUser } from "../context/UserContext";
 
-import axios from "axios";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast styling
 import { ChangePasswordModal } from "../components/ChangePassword";
+import api from "../api/api.js";
 
 
 
@@ -63,7 +63,7 @@ const Profile = () => {
       return;
     }
     try {
-      const response = await axios.put(
+      const response = await api.put(
         "/api/user/update-profile",
         {
           firstName: formData.firstName,

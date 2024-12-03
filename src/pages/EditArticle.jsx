@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../api/api.js";
 
 const EditArticle = () => {
   const { id } = useParams(); // Get the article ID from the route
@@ -37,7 +37,7 @@ const EditArticle = () => {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
 
-        const { data } = await axios.get(`/api/articles/${id}`, {
+        const { data } = await api.get(`/api/articles/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -78,12 +78,13 @@ const EditArticle = () => {
       const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
       const token = loggedUser?.token;
   
-      const { data } = await axios.put(`/api/articles/${id}`, formData, {
+      const { data } = await api.put(`/api/articles/${id}`, formData, {
         headers: {
           "Content-Type": "application/json ",
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("for update Data :",data)
   
       toast.success("Article updated successfully!");
       navigate("/MyArticles");

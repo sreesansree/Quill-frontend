@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import api from "../api/api.js";
 
 const ArticleDetails = () => {
   const { id } = useParams();
@@ -14,7 +14,7 @@ const ArticleDetails = () => {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
 
-        const { data } = await axios.get(
+        const { data } = await api.get(
           `/api/articles/article-details/${id}`,
           {
             headers: { Authorization: `Bearer ${token}` },

@@ -1,8 +1,8 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import api from "../api/api.js";
 
 const ResetPassword = () => {
   const [otp, setOtp] = useState("");
@@ -54,7 +54,7 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      await axios.post("/api/auth/reset-password", {
+      await api.post("/api/auth/reset-password", {
         email,
         otp,
         newPassword,

@@ -29,14 +29,25 @@ const Header = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
+  const handleLogoClick = () => {
+    if (token) {
+      navigate("/dashboard");
+    } else {
+      // Optionally, you can do nothing or show a message
+      console.log("User  is not logged in.");
+    }
+  };
 
   return (
     <header className="bg-blue-600 shadow-md">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* Logo */}
-        <Link to="#" className="text-white text-xl font-bold">
+        {/* <Link to="#" className="text-white text-xl font-bold">
           Quill
-        </Link>
+        </Link> */}
+        <button onClick={handleLogoClick} className="text-white text-xl font-bold">
+          Quill
+        </button>
 
         {token && (
           <>
