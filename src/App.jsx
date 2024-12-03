@@ -24,9 +24,11 @@ const MyArticles = React.lazy(() => import("./pages/MyArticles.jsx"));
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
+    console.log("Loading started");
     setTimeout(() => {
       setLoading(false);
-    }, 2500);
+      console.log("Loading finished");
+    }, 2000);
   }, []);
   return (
     <>
