@@ -17,17 +17,19 @@ import Profile from "./pages/Profile.jsx";
 import ArticleDetails from "./pages/ArticleDetails.jsx";
 import Footer from "./components/Footer.jsx";
 // import MyArticles from "./pages/MyArticles.jsx";
+// import Articles from "./pages/Articles.jsx";
 
+// const MyArticles = React.lazy(() => import("./pages/MyArticles.jsx"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard.jsx"));
-const MyArticles = React.lazy(() => import("./pages/MyArticles.jsx"));
+const Articles = React.lazy(() => import("./pages/Articles.jsx"));
 
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    console.log("Loading started");
+    // console.log("Loading started");
     setTimeout(() => {
       setLoading(false);
-      console.log("Loading finished");
+      // console.log("Loading finished");
     }, 2000);
   }, []);
   return (
@@ -62,7 +64,8 @@ function App() {
                   path="/MyArticles"
                   element={
                     <Suspense fallback={<Spinner />}>
-                      <MyArticles />
+                      {/* <MyArticles /> */}
+                      <Articles />
                     </Suspense>
                   }
                 />

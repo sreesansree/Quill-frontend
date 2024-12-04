@@ -77,17 +77,37 @@ const OtpVerification = () => {
       return;
     }
     try {
-      const res = await fetch("/api/auth/verify-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: registeredUser, otp }),
-      });
-      const data = await res.json();
-      if (res.ok) {
-        toast.success(data.message || "Account verified successfully!");
-        setTimeout(() => navigate("/login"), 2000); // Navigate after success
+      // const res = await fetch("/api/auth/verify-otp", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   body: JSON.stringify({ email: registeredUser, otp }),
+      // });
+      // const data = await res.json();
+      // if (res.ok) {
+      //   toast.success(data.message || "Account verified successfully!");
+      //   setTimeout(() => navigate("/login"), 2000); // Navigate after success
+      // } else {
+      //   toast.error(data.message || "Invalid OTP. Please try again.");
+      // }
+      const response = await api.post(
+        "/api/auth/verify-otp",
+        {
+          email: registeredUser,
+          otp: otp,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      // Handle success response
+      if (response.status === 200) {
+        toast.success(
+          response.data.message || "Account verified successfully!"
+        );
+        setTimeout(() => navigate("/login"), 2000);  
       } else {
-        toast.error(data.message || "Invalid OTP. Please try again.");
+        toast.error(response.data.message || "Invalid OTP. Please try again.");
       }
     } catch (error) {
       console.log(error.message);

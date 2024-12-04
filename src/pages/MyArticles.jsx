@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import ArticleList from "./ArticleList";
+// import ArticleList from "./ArticleList";
 import api from "../api/api.js";
 
 const MyArticles = () => {
@@ -15,12 +15,12 @@ const MyArticles = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  // const [isPopupOpen, setPopupOpen] = useState(false);
 
   // State for Liked, Disliked, and Blocked Articles
-  const [likedArticles, setLikedArticles] = useState([]);
-  const [dislikedArticles, setDislikedArticles] = useState([]);
-  const [blockedArticles, setBlockedArticles] = useState([]);
+  // const [likedArticles, setLikedArticles] = useState([]);
+  // const [dislikedArticles, setDislikedArticles] = useState([]);
+  // const [blockedArticles, setBlockedArticles] = useState([]);
 
   const fetchArticles = async () => {
     setLoading(true);
@@ -41,29 +41,29 @@ const MyArticles = () => {
     }
   };
 
-  const fetchPopupData = async (action) => {
-    const endpointMap = {
-      "Liked Article": "/api/user/liked",
-      "Disliked Article": "/api/user/disliked",
-      "Blocked Article": "/api/user/blocked",
-    };
-    try {
+  // const fetchPopupData = async (action) => {
+  //   const endpointMap = {
+  //     "Liked Article": "/api/user/liked",
+  //     "Disliked Article": "/api/user/disliked",
+  //     "Blocked Article": "/api/user/blocked",
+  //   };
+  //   try {
       const token = JSON.parse(localStorage.getItem("loggedUser"))?.token;
-      const { data } = await api.get(endpointMap[action], {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+  //     const { data } = await api.get(endpointMap[action], {
+  //       headers: { Authorization: `Bearer ${token}` },
+  //     });
 
-      if (action === "Liked Article") setLikedArticles(data);
-      if (action === "Disliked Article") setDislikedArticles(data);
-      if (action === "Blocked Article") setBlockedArticles(data);
+  //     if (action === "Liked Article") setLikedArticles(data);
+  //     if (action === "Disliked Article") setDislikedArticles(data);
+  //     if (action === "Blocked Article") setBlockedArticles(data);
 
-      toast.success(`${action} fetched successfully`);
-    } catch (error) {
-      console.error(`Failed to fetch ${action}`, error);
-      toast.error(`Failed to fetch ${action}`);
-    }
-    setPopupOpen(false);
-  };
+  //     toast.success(`${action} fetched successfully`);
+  //   } catch (error) {
+  //     console.error(`Failed to fetch ${action}`, error);
+  //     toast.error(`Failed to fetch ${action}`);
+  //   }
+  //   setPopupOpen(false);
+  // };
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
@@ -137,16 +137,16 @@ const MyArticles = () => {
               </option>
             ))}
           </select>
-          <button
+          {/* <button
             onClick={() => setPopupOpen(true)}
             className="bg-blue-400 text-white font-semibold px-3 py-1 rounded-full shadow-lg"
           >
             View
-          </button>
+          </button> */}
         </div>
       </div>
 
-      {isPopupOpen && (
+      {/* {isPopupOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
           <div className="bg-white rounded-md shadow-lg p-6 w-full max-w-md">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">
@@ -180,7 +180,7 @@ const MyArticles = () => {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredArticles.map((article) => (
@@ -222,7 +222,7 @@ const MyArticles = () => {
         ))}
       </div>
 
-      {likedArticles.length > 0 && (
+      {/* {likedArticles.length > 0 && (
         <ArticleList articles={likedArticles} category="Liked Articles" />
       )}
       {dislikedArticles.length > 0 && (
@@ -230,11 +230,11 @@ const MyArticles = () => {
       )}
       {blockedArticles.length > 0 && (
         <ArticleList articles={blockedArticles} category="Blocked Articles" />
-      )}
+      )} */}
 
-      {filteredArticles.length === 0 && (
+      {/* {filteredArticles.length === 0 && (
         <p className="text-center mt-6 text-gray-700">No articles found.</p>
-      )}
+      )} */}
     </div>
   );
 };

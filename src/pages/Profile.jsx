@@ -7,9 +7,6 @@ import "react-toastify/dist/ReactToastify.css"; // Import CSS for toast styling
 import { ChangePasswordModal } from "../components/ChangePassword";
 import api from "../api/api.js";
 
-
-
-
 const Profile = () => {
   //   const { loggedUser } = useUser();
   const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
@@ -17,8 +14,10 @@ const Profile = () => {
   const [isChangePasswordOpen, setChangePasswordOpen] = useState(false);
   const [errors, setErrors] = useState({});
 
+  console.log("Logged User : ",loggedUser);
+
   const [formData, setFormData] = useState({
-    firstName: loggedUser?.user?.name || "",
+    firstName: loggedUser?.user?.firstName || "",
     lastName: loggedUser?.user?.lastName || "",
     dob: loggedUser?.user?.dob ? loggedUser.user.dob.split("T")[0] : "",
     phone: loggedUser?.user?.phone || "",

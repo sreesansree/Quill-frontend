@@ -17,12 +17,20 @@ const Dashboard = () => {
       try {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
+        const userId = loggedUser?  .user?._id;
         const { data } = await api.get("/api/articles/preferences", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        setArticles(data);
+        // Filter out articles blocked by the current user
+        const filteredArticles = data.filter(
+          (article) => !article.blocks.includes(userId)
+        );
+        console.log(loggedUser);
+        console.log("Dataa", filteredArticles);
+        console.log("userId", userId);
+        setArticles(filteredArticles);
         setLoading(false);
       } catch (error) {
         console.log("Error Message : ", error.message);
