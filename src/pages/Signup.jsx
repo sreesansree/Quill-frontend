@@ -82,7 +82,7 @@ const Signup = () => {
 
       // Check if the user is at least 12 years old
       if (age < 12) {
-        validationErrors.dob = "You must be at least 18 years old.";
+        validationErrors.dob = "You must be at least 12 years old.";
       }
     }
 

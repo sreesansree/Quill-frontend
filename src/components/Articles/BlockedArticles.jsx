@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, lazy, Suspense } from "react";
 import api from "../../api/api";
-import ArticleList from "../../pages/ArticleList";
-
+import Spinner from "../Spinner.jsx";
+// import ArticleList from "../../pages/ArticleList";
+const ArticleList = lazy(() => import('../../pages/ArticleList.jsx');
 const BlockedArticles = () => {
   const [blockedArticles, setBlockedArticles] = useState([]);
 
@@ -23,7 +24,9 @@ const BlockedArticles = () => {
 
   return (
     <div>
+      <Suspense fallback={<Spinner />}>
       <ArticleList articles={blockedArticles} category="Blocked Articles" />
+      </Suspense>
     </div>
   );
 };

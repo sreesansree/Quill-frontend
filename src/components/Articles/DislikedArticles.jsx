@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
-import ArticleList from "../../pages/ArticleList";
+import React, { Suspense, useEffect, useState } from "react";
 import api from "../../api/api.js";
-
+import Spinner from "../Spinner.jsx";
+// import ArticleList from "../../pages/ArticleList";
+const ArticleList = React.lazy(() => import("../../pages/ArticleList.jsx"));
 const DislikedArticles = () => {
   const [dislikedArticles, setDislikedArticles] = useState([]);
   useEffect(() => {
@@ -21,7 +22,9 @@ const DislikedArticles = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <ArticleList articles={dislikedArticles} category="Disliked Articles" />{" "}
+      <Suspense fallback={<Spinner />}>
+        <ArticleList articles={dislikedArticles} category="Disliked Articles" />{" "}
+      </Suspense>
     </div>
   );
 };
