@@ -32,10 +32,20 @@ const CreateArticle = () => {
 
   const validateForm = () => {
     const newErrors = {};
+    // Check required fields
     if (!title) newErrors.title = "Title is required.";
     if (!description) newErrors.description = "Description is required.";
+    if (description && description.length > 255) {
+      newErrors.description = "Description must not exceed 255 characters.";
+    }
     if (!content) newErrors.content = "Content is required.";
     if (!category) newErrors.category = "Category is required.";
+
+    // Validate tags format
+    if (tags && !/^[\w\s,]+$/.test(tags)) {
+      newErrors.tags = "Tags should be a comma-separated list of words.";
+    }
+
     if (coverImage && !["image/jpeg", "image/png"].includes(coverImage.type)) {
       newErrors.coverImage = "Cover image must be a valid JPEG or PNG file.";
     }
