@@ -67,7 +67,25 @@ const Signup = () => {
     }
     if (!formData.dob) {
       validationErrors.dob = "Date of birth is required.";
+    } else {
+      const dob = new Date(formData.dob);
+      let age = new Date().getFullYear() - dob.getFullYear();
+      const monthDiff = new Date().getMonth() - dob.getMonth();
+
+      // Adjust age if the birth date hasn't occurred yet this year
+      if (
+        monthDiff < 0 ||
+        (monthDiff === 0 && new Date().getDate() < dob.getDate())
+      ) {
+        age--;
+      }
+
+      // Check if the user is at least 12 years old
+      if (age < 12) {
+        validationErrors.dob = "You must be at least 18 years old.";
+      }
     }
+
     if (!formData.password) {
       validationErrors.password = "Password is required.";
     } else if (formData.password.length < 6) {
