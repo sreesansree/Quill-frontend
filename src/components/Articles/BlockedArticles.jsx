@@ -2,7 +2,8 @@ import { useEffect, useState, lazy, Suspense } from "react";
 import api from "../../api/api";
 import Spinner from "../Spinner.jsx";
 // import ArticleList from "../../pages/ArticleList";
-const ArticleList = lazy(() => import('../../pages/ArticleList.jsx');
+const ArticleList = lazy(() => import("../../pages/ArticleList.jsx"));
+
 const BlockedArticles = () => {
   const [blockedArticles, setBlockedArticles] = useState([]);
 
@@ -23,9 +24,9 @@ const BlockedArticles = () => {
   }, []);
 
   return (
-    <div>
+    <div className="flex items-center justify-center">
       <Suspense fallback={<Spinner />}>
-      <ArticleList articles={blockedArticles} category="Blocked Articles" />
+        <ArticleList articles={blockedArticles} category="Blocked Articles" />
       </Suspense>
     </div>
   );

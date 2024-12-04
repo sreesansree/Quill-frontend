@@ -1,7 +1,7 @@
 const ArticleList = ({ articles, category }) => {
   return (
-    <div className="mt-4">
-      <h3 className="text-lg font-semibold">{category} Articles</h3>
+    <div className="mt-4 ">
+      <h3 className="text-lg  font-semibold">{category} Articles</h3>
       {articles.length > 0 ? (
         <ul className="mt-2">
           {articles.map((article, index) => (
@@ -13,7 +13,7 @@ const ArticleList = ({ articles, category }) => {
                 <img
                   src={article.images[0] || "/placeholder-image.jpg"}
                   alt={article.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-fill"
                 />
                 <div className="p-4">
                   <h3 className="text-lg font-bold mb-2">{article.title}</h3>
@@ -29,7 +29,7 @@ const ArticleList = ({ articles, category }) => {
           ))}
         </ul>
       ) : (
-        <p className="text-gray-600">No articles found.</p>
+        <p className="min-h-screen text-gray-600">No articles found.</p>
       )}
     </div>
   );
