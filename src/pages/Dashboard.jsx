@@ -175,11 +175,13 @@ const Dashboard = () => {
             <p className="text-sm text-blue-500 mb-4 underline">
               <>#{article.tags.join(" #")}</>
             </p>
-            <img
-              src={article.images[0] || "/placeholder-image.jpg"}
-              alt={article.title}
-              className="w-full h-80 object-cover mb-5 rounded-lg"
-            />
+            <div className="w-full relative">
+              <img
+                src={article.images[0] || "/placeholder-image.jpg"}
+                alt={article.title}
+                className="w-full h-full object-cover rounded-lg"
+              />
+            </div>
             <p className="text-gray-800 line-clamp-3 mb-6">
               {article.description}
             </p>

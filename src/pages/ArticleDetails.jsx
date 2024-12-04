@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import api from "../api/api.js";
+import Spinner from "../components/Spinner.jsx";
 
 const ArticleDetails = () => {
   const { id } = useParams();
@@ -14,12 +15,9 @@ const ArticleDetails = () => {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
 
-        const { data } = await api.get(
-          `/api/articles/article-details/${id}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const { data } = await api.get(`/api/articles/article-details/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         setArticle(data);
         setLoading(false);
@@ -33,7 +31,12 @@ const ArticleDetails = () => {
     fetchArticleDetails();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <Spinner />
+      </div>
+    );
   if (!article) return <div>Article not found</div>;
 
   return (
@@ -47,7 +50,7 @@ const ArticleDetails = () => {
         <strong>{new Date(article.createdAt).toLocaleString()}</strong>
       </p>
       <div className="text-sm text-blue-500 mb-4">
-     #{article.tags.join(" #")}
+        #{article.tags.join(" #")}
       </div>
       <img
         src={article.images[0] || "/placeholder-image.jpg"}

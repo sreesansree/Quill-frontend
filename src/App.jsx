@@ -14,15 +14,15 @@ import NotFound from "./components/NotFound.jsx";
 import React, { Suspense, useEffect, useState } from "react";
 import Spinner from "./components/Spinner.jsx";
 import Profile from "./pages/Profile.jsx";
-import ArticleDetails from "./pages/ArticleDetails.jsx";
 import Footer from "./components/Footer.jsx";
+// import ArticleDetails from "./pages/ArticleDetails.jsx";
 // import MyArticles from "./pages/MyArticles.jsx";
 // import Articles from "./pages/Articles.jsx";
 
 // const MyArticles = React.lazy(() => import("./pages/MyArticles.jsx"));
 const Dashboard = React.lazy(() => import("./pages/Dashboard.jsx"));
 const Articles = React.lazy(() => import("./pages/Articles.jsx"));
-
+const ArticleDetails = React.lazy(() => import("./pages/ArticleDetails.jsx"));
 function App() {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -56,7 +56,15 @@ function App() {
                     </Suspense>
                   }
                 />
-                <Route path="/articles/:id" element={<ArticleDetails />} />
+
+                <Route
+                  path="/articles/:id"
+                  element={
+                    <Suspense fallback={<Spinner />}>
+                      <ArticleDetails />
+                    </Suspense>
+                  }
+                />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/create" element={<CreateArticle />} />
 
