@@ -17,7 +17,7 @@ const Dashboard = () => {
       try {
         const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
         const token = loggedUser?.token;
-        const userId = loggedUser?  .user?._id;
+        const userId = loggedUser?.user?._id;
         const { data } = await api.get("/api/articles/preferences", {
           headers: {
             Authorization: `Bearer ${token}`,
